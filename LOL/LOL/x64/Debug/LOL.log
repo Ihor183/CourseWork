@@ -1,18 +1,5 @@
 ﻿  Source.cpp
-c:\users\ihor1\source\repos\lol\lol\source.cpp(36): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(48): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(58): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(69): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(69): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(80): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(81): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(93): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(93): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(104): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(104): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(105): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(117): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(117): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\source\repos\lol\lol\source.cpp(208): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  LOL.vcxproj -> C:\Users\ihor1\source\repos\LOL\x64\Debug\LOL.exe
+  LINK : не найден или не выполнена сборка C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe при последней инкрементной компоновке; выполняется полная компоновка
+     Создается библиотека C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.lib и объект C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exp
+MSVCRTD.lib(initializers.obj) : warning LNK4098: библиотека по умолчанию "msvcrt.lib" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
+  LOL.vcxproj -> C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe
