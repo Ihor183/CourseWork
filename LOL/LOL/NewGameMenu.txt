@@ -1,0 +1,29 @@
+//1
+spr_Plcol[i].setTextureRect(IntRect(74, 65, 103, 106));
+spr_Plcol[i].setScale(Vector2f(0.56f, 0.547f));
+spr_Plcol[i].setPosition(80, 100);
+
+//2
+spr_Plcol[i].setTextureRect(IntRect(231, 26, 171, 156));
+spr_Plcol[i].setScale(Vector2f(0.34f, 0.37f));
+spr_Plcol[i].setPosition(1228, 100);
+
+//3
+spr_Plcol[i].setTextureRect(IntRect(486, 75, 113,87));
+spr_Plcol[i].setScale(Vector2f(0.513f, 0.666f));
+spr_Plcol[i].setPosition(80, 200);
+
+//4
+spr_Plcol[i].setTextureRect(IntRect(30, 195, 140, 123));
+spr_Plcol[i].setScale(Vector2f(0.414f, 0.47f));
+spr_Plcol[i].setPosition(1228, 200);
+
+//5
+spr_Plcol[i].setTextureRect(IntRect(251, 237, 123, 74));
+spr_Plcol[i].setScale(Vector2f(0.47f, 0.783f));
+//spr_Plcol[i].setPosition(80, 100);
+
+//6
+spr_Plcol[i].setTextureRect(IntRect(480, 225, 155, 81));
+spr_Plcol[i].setScale(Vector2f(0.374f, 0.716f));
+//spr_Plcol[i].setPosition(80, 100);
