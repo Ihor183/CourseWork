@@ -1,5 +1,2 @@
 ﻿  Source.cpp
-  LINK : не найден или не выполнена сборка C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe при последней инкрементной компоновке; выполняется полная компоновка
-     Создается библиотека C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.lib и объект C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exp
-MSVCRTD.lib(initializers.obj) : warning LNK4098: библиотека по умолчанию "msvcrt.lib" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
   LOL.vcxproj -> C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe
