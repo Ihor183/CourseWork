@@ -118,11 +118,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Tokens.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Tokens.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
