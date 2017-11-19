@@ -16,8 +16,7 @@ struct coordinate {
 	double vec2f1, vec2f2;
 
 	bool operator < (const coordinate &point) const {
-		//if(this->x == point.x && this->y == point.y && this->Wight == point.Wight && this->Height == point.Height)
-		if(Height < point.Height)
+		if(x < point.x)
 		    return true;
 		return false;
 	}
@@ -114,30 +113,61 @@ void Tokens :: getToken(int* a, int* b, int* c, int* d, double* e, double* f) {
 		if ((*itokens).first == temp) {
 			i++;
 			(*itokens).second = false;
-			if ((++itokens) == tokens.end()) {
-				itokens = tokens.begin();
-				
-				(*itokens).second = true;
-				*a = (*itokens).first.x;
-				*b = (*itokens).first.y;
-				*c = (*itokens).first.Wight;
-				*d = (*itokens).first.Height;
-				*e = (*itokens).first.vec2f1;
-				*f = (*itokens).first.vec2f2;
 
+			
+			/*map<coordinate, bool>::iterator it;
+			for (it = itokens; it != tokens.end(); it++) {
+
+			}*/
+			if ((++itokens) == tokens.end()) {
+				for (itokens = tokens.begin(); itokens != tokens.end(); itokens++) {
+					if ((*itokens).second == false) {
+						(*itokens).second = true;
+						*a = (*itokens).first.x;
+						*b = (*itokens).first.y;
+						*c = (*itokens).first.Wight;
+						*d = (*itokens).first.Height;
+						*e = (*itokens).first.vec2f1;
+						*f = (*itokens).first.vec2f2;
+
+						break;
+					}
+				}
 				break;
 			}
 			else {
-				++itokens;
-				(*itokens).second = true;
-				*a = (*itokens).first.x;
-				*b = (*itokens).first.y;
-				*c = (*itokens).first.Wight;
-				*d = (*itokens).first.Height;
-				*e = (*itokens).first.vec2f1;
-				*f = (*itokens).first.vec2f2;
+				map<coordinate, bool>::iterator it;
+				for (it = itokens; it != --itokens; it++) {
+					if (it == tokens.end()) {
+						it = tokens.begin();
+						if ((*it).second == false) {
+							(*it).second = true;
+							*a = (*it).first.x;
+							*b = (*it).first.y;
+							*c = (*it).first.Wight;
+							*d = (*it).first.Height;
+							*e = (*it).first.vec2f1;
+							*f = (*it).first.vec2f2;
 
-				break;
+							break;
+						}
+					}
+
+					else {
+						//itokens
+						if ((*it).second == false) {
+							(*it).second = true;
+							*a = (*it).first.x;
+							*b = (*it).first.y;
+							*c = (*it).first.Wight;
+							*d = (*it).first.Height;
+							*e = (*it).first.vec2f1;
+							*f = (*it).first.vec2f2;
+
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -298,7 +328,7 @@ void newGame(RenderWindow &window) {
 			menuNum = 4;
 		if (IntRect(80, 360, 300, 50).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Blue); menuNum = 5; }
 
-		if (Mouse::isButtonPressed(Mouse::Left) || menuNum == 1) {
+		if (Mouse::isButtonPressed(Mouse::Left)/* || menuNum == 1*/) {
 			if (menuNum == 1) {
 				tokens.getToken(&a, &b, &c, &d, &e, &f);
 				spr_Token[0].setTextureRect(IntRect(a, b, c, d));
@@ -378,7 +408,7 @@ void menu(RenderWindow &window) {
 		if (IntRect(80, 300, 300, 50).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Blue); menuNum = 1; }
 		if (IntRect(80, 360, 300, 50).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Blue); menuNum = 2; }
 		if (IntRect(80, 420, 300, 50).contains(Mouse::getPosition(window))) { menu3.setColor(Color::Blue); menuNum = 3; }
-		if (Mouse::isButtonPressed(Mouse::Left) || menuNum == 1)
+		if (Mouse::isButtonPressed(Mouse::Left)/* || menuNum == 1*/)
 		{
 			if (menuNum == 1) {
 				newGame(window);
