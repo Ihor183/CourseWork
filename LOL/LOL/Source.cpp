@@ -16,8 +16,7 @@ struct coordinate {
 	double vec2f1, vec2f2;
 
 	bool operator < (const coordinate &point) const {
-		//if(this->x == point.x && this->y == point.y && this->Wight == point.Wight && this->Height == point.Height)
-		if(Height < point.Height)
+		if(x < point.x)
 		    return true;
 		return false;
 	}
@@ -111,37 +110,64 @@ void Tokens :: getToken(int* a, int* b, int* c, int* d, double* e, double* f) {
 	int i = 0;
 
 	for (itokens = tokens.begin(); itokens != tokens.end(); itokens++) {
-		if ((*itokens).first == temp) {
+		if ((*itokens).first == temp && (*itokens).second == true) {
 			i++;
-			(*itokens).second = false;
-			if ((++itokens) == tokens.end()) {
-				itokens = tokens.begin();
-				
-				(*itokens).second = true;
-				*a = (*itokens).first.x;
-				*b = (*itokens).first.y;
-				*c = (*itokens).first.Wight;
-				*d = (*itokens).first.Height;
-				*e = (*itokens).first.vec2f1;
-				*f = (*itokens).first.vec2f2;
+			tokens[temp] = false;
 
+			if ((++itokens) == tokens.end()) {
+				for (itokens = tokens.begin(); itokens != tokens.end(); itokens++) {
+					if ((*itokens).second == false) {
+						(*itokens).second = true;
+						*a = (*itokens).first.x;
+						*b = (*itokens).first.y;
+						*c = (*itokens).first.Wight;
+						*d = (*itokens).first.Height;
+						*e = (*itokens).first.vec2f1;
+						*f = (*itokens).first.vec2f2;
+
+						break;
+					}
+				}
 				break;
 			}
 			else {
-				++itokens;
-				(*itokens).second = true;
-				*a = (*itokens).first.x;
-				*b = (*itokens).first.y;
-				*c = (*itokens).first.Wight;
-				*d = (*itokens).first.Height;
-				*e = (*itokens).first.vec2f1;
-				*f = (*itokens).first.vec2f2;
+				int count = 0;
+				map<coordinate, bool>::iterator it;
+				for (it = itokens; it != tokens.end(); it++) {
+					if ((*it).second == false) {
+						(*it).second = true;
+						*a = (*it).first.x;
+						*b = (*it).first.y;
+						*c = (*it).first.Wight;
+						*d = (*it).first.Height;
+						*e = (*it).first.vec2f1;
+						*f = (*it).first.vec2f2;
+						count++;
+						break;
+					}
+				}
 
-				break;
+				if (count == 0) {
+					for (it = tokens.begin(); it != itokens; it++) {
+						if ((*it).second == false) {
+							(*it).second = true;
+							*a = (*it).first.x;
+							*b = (*it).first.y;
+							*c = (*it).first.Wight;
+							*d = (*it).first.Height;
+							*e = (*it).first.vec2f1;
+							*f = (*it).first.vec2f2;
+
+							break;
+						}
+					}
+
+					break;
+				}
 			}
+			break;
 		}
 	}
-
 	if (i == 0) {
 	bool flag = false;
 	itokens = tokens.begin();
@@ -217,11 +243,21 @@ void newGame(RenderWindow &window) {
 				spr_Plcol[i].setPosition(1108, 200);
 		}
 	}
-	int a, b, c, d;
-	double e = 0.0, f = 0.0;
-	a = 0, b = 0, c = 1, d = 1;
+	int a[4], b[4], c[4], d[4];
+	double e[4], f[4];
+
+	for (int i = 0; i < 4; i++)
+	{
+		a[i] = 0;
+		b[i] = 0;
+		c[i] = 1;
+		d[i] = 1;
+		e[i] = 0.0;
+		f[i] = 0.0;
+	}
+
 	for (int i = 0; i < 4; i++) {
-		spr_Token[i].setTextureRect(IntRect(a, b, c, d));
+		spr_Token[i].setTextureRect(IntRect(a[i], b[i], c[i], d[i]));
 		if(i == 0)
 		    spr_Token[i].setPosition(80, 100);
 		if (i == 1) 
@@ -262,31 +298,108 @@ void newGame(RenderWindow &window) {
 
 	Font fnt_Arial;
 	fnt_Arial.loadFromFile("fonts/arial.ttf");
-	Text text1("", fnt_Arial, 14), text2("", fnt_Arial, 14), text3("", fnt_Arial, 14), text4("", fnt_Arial, 14);
-
+	//Text text1("", fnt_Arial, 14), text2("", fnt_Arial, 14), text3("", fnt_Arial, 14), text4("", fnt_Arial, 14);
+	Text text[4];
+	for (int i = 0; i < 4; i++) {
+		text[i].setFont(fnt_Arial);
+		text[i].setCharacterSize(14);
+		text[i].setStyle(Text::Bold);
+		text[i].setString(NotPlay);
+	}
 
 	//text.setColor(Color::White);
-	text1.setStyle(Text::Bold);
-	text1.setString(NotPlay);
-	text1.setPosition(150, 120);
+	/*text1.setStyle(Text::Bold);
+	text1.setString(NotPlay);*/
+	text[0].setPosition(150, 120);
 
-	text2.setStyle(Text::Bold);
-	text2.setString(NotPlay);
-	text2.setPosition(1110, 120);
+	/*text2.setStyle(Text::Bold);
+	text2.setString(NotPlay);*/
+	text[1].setPosition(1110, 120);
 
-	text3.setStyle(Text::Bold);
-	text3.setString(NotPlay);
-	text3.setPosition(150, 220);
+	/*text.setStyle(Text::Bold);
+	text3.setString(NotPlay);*/
+	text[2].setPosition(150, 220);
 
-	text4.setStyle(Text::Bold);
-	text4.setString(NotPlay);
-	text4.setPosition(1110, 220);
+	/*text.setStyle(Text::Bold);
+	text4.setString(NotPlay);*/
+	text[3].setPosition(1110, 220);
 
-	//int i = 0;
+	int isSelect[4] = {0, 0, 0, 0};
 
 	while (isMenu) {
 		menuNum = 0;
 		window.clear();
+		if (IntRect(138, 100, 120, 58).contains(Mouse::getPosition(window))) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				if (isSelect[0] == 0) {
+					isSelect[0] = 1;
+					text[0].setString(Play);
+				}
+				else {
+					isSelect[0] = 0;
+					text[0].setString(NotPlay);
+
+					a[0] = 0, b[0] = 0, c[0] = 1, d[0] = 1, e[0] = 0.0, f[0] = 0.0;
+					spr_Token[0].setTextureRect(IntRect(a[0], b[0], c[0], d[0]));
+					spr_Token[0].setPosition(80, 100);
+				}
+			}
+		   sleep(*new Time(milliseconds(200)));
+		}
+
+		if (IntRect(1108, 100, 120, 58).contains(Mouse::getPosition(window))) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				if (isSelect[1] == 0) {
+					isSelect[1] = 1;
+					text[1].setString(Play);
+				}
+				else {
+					isSelect[1] = 0;
+					text[1].setString(NotPlay);
+
+					a[1] = 0, b[1] = 0, c[1] = 1, d[1] = 1, e[1] = 0.0, f[1] = 0.0;
+					spr_Token[1].setTextureRect(IntRect(a[1], b[1], c[1], d[1]));
+					spr_Token[1].setPosition(1228, 100);
+				}
+			}
+			sleep(*new Time(milliseconds(200)));
+		}
+
+		if (IntRect(138, 200, 120, 58).contains(Mouse::getPosition(window))) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				if (isSelect[2] == 0) {
+					isSelect[2] = 1;
+					text[2].setString(Play);
+				}
+				else {
+					isSelect[2] = 0;
+					text[2].setString(NotPlay);
+
+					a[2] = 0, b[2] = 0, c[2] = 1, d[2] = 1, e[2] = 0.0, f[2] = 0.0;
+					spr_Token[2].setTextureRect(IntRect(a[2], b[2], c[2], d[2]));
+					spr_Token[2].setPosition(80, 200);
+				}
+			}
+			sleep(*new Time(milliseconds(200)));
+		}
+
+		if (IntRect(1108, 200, 120, 58).contains(Mouse::getPosition(window))) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				if (isSelect[3] == 0) {
+					isSelect[3] = 1;
+					text[3].setString(Play);
+				}
+				else {
+					isSelect[3] = 0;
+					text[3].setString(NotPlay);
+
+					a[3] = 0, b[3] = 0, c[3] = 1, d[3] = 1, e[3] = 0.0, f[3] = 0.0;
+					spr_Token[3].setTextureRect(IntRect(a[3], b[3], c[3], d[3]));
+					spr_Token[3].setPosition(1228, 200);
+				}
+			}
+			sleep(*new Time(milliseconds(200)));
+		}
 
 		if (IntRect(80, 100, 58, 58).contains(Mouse::getPosition(window)))
 			menuNum = 1;
@@ -298,38 +411,58 @@ void newGame(RenderWindow &window) {
 			menuNum = 4;
 		if (IntRect(80, 360, 300, 50).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Blue); menuNum = 5; }
 
-		if (Mouse::isButtonPressed(Mouse::Left) || menuNum == 1) {
-			if (menuNum == 1) {
-				tokens.getToken(&a, &b, &c, &d, &e, &f);
-				spr_Token[0].setTextureRect(IntRect(a, b, c, d));
-				spr_Token[0].setScale(Vector2f(e, f));
+		if (Mouse::isButtonPressed(Mouse::Left)/* || menuNum == 1*/) {
+			if (menuNum == 1 && isSelect[0] == 1) {
+				tokens.getToken(&a[0], &b[0], &c[0], &d[0], &e[0], &f[0]);
+				spr_Token[0].setTextureRect(IntRect(a[0], b[0], c[0], d[0]));
+				spr_Token[0].setScale(Vector2f(e[0], f[0]));
 				spr_Token[0].setPosition(80, 100);
 				sleep(*new Time(milliseconds(200)));
 			}
+			/*else if(menuNum == 1 && isSelect[0] == 0) {
+				a[0] = 0, b[0] = 0, c[0] = 1, d[0] = 1, e[0] = 0.0, f[0] = 0.0;
+				spr_Token[0].setTextureRect(IntRect(a[0], b[0], c[0], d[0]));
+				spr_Token[0].setPosition(80, 100);
+			}*/
 
-			if (menuNum == 2) {
-				tokens.getToken(&a, &b, &c, &d, &e, &f);
-				spr_Token[1].setTextureRect(IntRect(a, b, c, d));
-				spr_Token[1].setScale(Vector2f(e, f));
+			if (menuNum == 2 && isSelect[1] == 1) {
+				tokens.getToken(&a[1], &b[1], &c[1], &d[1], &e[1], &f[1]);
+				spr_Token[1].setTextureRect(IntRect(a[1], b[1], c[1], d[1]));
+				spr_Token[1].setScale(Vector2f(e[1], f[1]));
 				spr_Token[1].setPosition(1228, 100);
 				sleep(*new Time(milliseconds(200)));
 			}
+			/*else if(menuNum == 2 && isSelect[1] == 0) {
+				a[1] = 0, b[1] = 0, c[1] = 1, d[1] = 1, e[1] = 0.0, f[1] = 0.0;
+				spr_Token[1].setTextureRect(IntRect(a[1], b[1], c[1], d[1]));
+				spr_Token[1].setPosition(1228, 100);
+			}*/
 
-			if (menuNum == 3) {
-				tokens.getToken(&a, &b, &c, &d, &e, &f);
-				spr_Token[2].setTextureRect(IntRect(a, b, c, d));
-				spr_Token[2].setScale(Vector2f(e, f));
+			if (menuNum == 3 && isSelect[2] == 1) {
+				tokens.getToken(&a[2], &b[2], &c[2], &d[2], &e[2], &f[2]);
+				spr_Token[2].setTextureRect(IntRect(a[2], b[2], c[2], d[2]));
+				spr_Token[2].setScale(Vector2f(e[2], f[2]));
 				spr_Token[2].setPosition(80, 200);
 				sleep(*new Time(milliseconds(200)));
 			}
+			/*else if(menuNum == 3 && isSelect[2] == 0) {
+				a[2] = 0, b[2] = 0, c[2] = 1, d[2] = 1, e[2] = 0.0, f[2] = 0.0;
+				spr_Token[2].setTextureRect(IntRect(a[2], b[2], c[2], d[2]));
+				spr_Token[2].setPosition(80, 200);
+			}*/
 
-			if (menuNum == 4) {
-				tokens.getToken(&a, &b, &c, &d, &e, &f);
-				spr_Token[3].setTextureRect(IntRect(a, b, c, d));
-				spr_Token[3].setScale(Vector2f(e, f));
+			if (menuNum == 4 && isSelect[3] == 1) {
+				tokens.getToken(&a[3], &b[3], &c[3], &d[3], &e[3], &f[3]);
+				spr_Token[3].setTextureRect(IntRect(a[3], b[3], c[3], d[3]));
+				spr_Token[3].setScale(Vector2f(e[3], f[3]));
 				spr_Token[3].setPosition(1228, 200);
 				sleep(*new Time(milliseconds(200)));
 			}
+			/*else if(menuNum == 4 && isSelect[3] == 0) {
+				a[3] = 0, b[3] = 0, c[3] = 1, d[3] = 1, e[3] = 0.0, f[3] = 0.0;
+				spr_Token[3].setTextureRect(IntRect(a[3], b[3], c[3], d[3]));
+				spr_Token[3].setPosition(1228, 200);
+			}*/
 
 			if (menuNum == 5) { window.close(); isMenu = false; }
 		}
@@ -343,10 +476,9 @@ void newGame(RenderWindow &window) {
 		for (int i = 0; i < 4; i++)
 			window.draw(spr_Token[i]);
 
-		window.draw(text1);
-		window.draw(text2);
-		window.draw(text3);
-		window.draw(text4);
+		for(int i = 0; i < 4; i++)
+		window.draw(text[i]);
+		
 
 		window.display();
 
@@ -378,7 +510,7 @@ void menu(RenderWindow &window) {
 		if (IntRect(80, 300, 300, 50).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Blue); menuNum = 1; }
 		if (IntRect(80, 360, 300, 50).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Blue); menuNum = 2; }
 		if (IntRect(80, 420, 300, 50).contains(Mouse::getPosition(window))) { menu3.setColor(Color::Blue); menuNum = 3; }
-		if (Mouse::isButtonPressed(Mouse::Left) || menuNum == 1)
+		if (Mouse::isButtonPressed(Mouse::Left)/* || menuNum == 1*/)
 		{
 			if (menuNum == 1) {
 				newGame(window);
