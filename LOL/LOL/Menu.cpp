@@ -72,8 +72,7 @@ Menu::Menu(RenderWindow& window) {
 }
 
 void Menu :: NewMenu(RenderWindow& window) {
-	Texture tex_Plcol[8], tex_Token[4]/*, menuTexture4*/, menuBackground;
-	//menuTexture4.loadFromFile("images/4.png");
+	Texture tex_Plcol[8], tex_Token[4], menuBackground;
 	menuBackground.loadFromFile("images/back1.png");
 	for (int i = 0; i < 8; i++) {
 		if (i < 4) {
@@ -217,7 +216,7 @@ void Menu :: NewMenu(RenderWindow& window) {
 					spr_Token[0].setPosition(80, 100);
 				}
 			}
-			sleep(*new Time(milliseconds(100)));
+			sleep(*new Time(milliseconds(150)));
 		}
 
 		if (IntRect(1108, 100, 120, 58).contains(Mouse::getPosition(window))) {
@@ -236,7 +235,7 @@ void Menu :: NewMenu(RenderWindow& window) {
 					spr_Token[1].setPosition(1228, 100);
 				}
 			}
-			sleep(*new Time(milliseconds(100)));
+			sleep(*new Time(milliseconds(150)));
 		}
 
 		if (IntRect(138, 200, 120, 58).contains(Mouse::getPosition(window))) {
@@ -255,7 +254,7 @@ void Menu :: NewMenu(RenderWindow& window) {
 					spr_Token[2].setPosition(80, 200);
 				}
 			}
-			sleep(*new Time(milliseconds(100)));
+			sleep(*new Time(milliseconds(150)));
 		}
 
 		if (IntRect(1108, 200, 120, 58).contains(Mouse::getPosition(window))) {
@@ -274,7 +273,7 @@ void Menu :: NewMenu(RenderWindow& window) {
 					spr_Token[3].setPosition(1228, 200);
 				}
 			}
-			sleep(*new Time(milliseconds(100)));
+			sleep(*new Time(milliseconds(150)));
 		}
 
 		if (IntRect(80, 100, 58, 58).contains(Mouse::getPosition(window)))   menuNum = 1;
@@ -344,5 +343,26 @@ void Menu :: NewMenu(RenderWindow& window) {
 
 
 		window.display();
+	}
+
+	for (int i = 0; i < 4; i++) {
+		DataTokens[i].x = a[i];
+		DataTokens[i].y = b[i];
+		DataTokens[i].Wight = c[i];
+		DataTokens[i].Height = d[i];
+		DataTokens[i].vec2f1 = e[i];
+		DataTokens[i].vec2f2 = f[i];
+	}
+
+}
+
+void Menu::GetDataTokens(int* a, int* b, int* c, int* d, double* e, double* f) {
+	for (int i = 0; i < 4; i++) {
+		a[i] = DataTokens[i].x;
+		b[i] = DataTokens[i].y;
+		c[i] = DataTokens[i].Wight;
+		d[i] = DataTokens[i].Height;
+		e[i] = DataTokens[i].vec2f1;
+		f[i] = DataTokens[i].vec2f2;
 	}
 }
