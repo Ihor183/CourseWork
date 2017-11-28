@@ -5,10 +5,11 @@
 Player::Player() {
 	money = 2000;
 	position = 0;
-	cubes = 0;
+	start = false;
 }
 
+Player::~Player() { }
 
-Player::~Player()
-{
+bool Player::GetStart() {
+	return start;
 }

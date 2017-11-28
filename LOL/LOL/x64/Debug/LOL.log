@@ -1,4 +1,9 @@
 ﻿  Source.cpp
-c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(45): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(65): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(50): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(73): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  Создание кода...
+  Компиляция...
+  Player.cpp
+  Создание кода...
   LOL.vcxproj -> C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe
