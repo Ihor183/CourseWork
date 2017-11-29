@@ -1,9 +1,15 @@
-﻿  Source.cpp
-c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(50): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(73): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+﻿  Map.cpp
+c:\users\ihor1\documents\github\coursework\lol\lol\map.cpp(65): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  CoordGo.cpp
   Создание кода...
   Компиляция...
-  Player.cpp
+  Source.cpp
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(50): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(79): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\ihor1\documents\github\coursework\lol\lol\source.cpp(81): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
   Создание кода...
+  Пропуск... (изменения не обнаружены)
+  DescriptionOfRectangles.cpp
+     ╤ючфрхЄё  сшсышюЄхър C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.lib ш юс·хъЄ C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exp
+MSVCRTD.lib(initializers.obj) : warning LNK4098: сшсышюЄхър яю єьюыўрэш■ "msvcrt.lib" яЁюЄштюЁхўшЄ шёяюы№чютрэш■ фЁєушї сшсышюЄхъ; шёяюы№чєщЄх ярЁрьхЄЁ /NODEFAULTLIB:library
   LOL.vcxproj -> C:\Users\ihor1\Documents\GitHub\CourseWork\LOL\x64\Debug\LOL.exe

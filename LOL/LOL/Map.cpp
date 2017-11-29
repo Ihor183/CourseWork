@@ -1,4 +1,5 @@
 #include "Map.h"
+#include<fstream>
 
 Map::Map() { }
 
@@ -17,53 +18,66 @@ ifstream& operator >> (ifstream &ifs, Map &obj)
 
 	}
 
+	for (int i = 0; i < SIZE; i++) {
+		if (i != 0 && i != 2 && i != 4 && i != 5 && i != 7 && i != 10 &&
+			i != 12 && i != 15 && i != 17 && i != 20 && i != 22 && i != 25 &&
+			i != 28 && i != 30 && i != 33 && i != 35 && i != 36 && i != 38) {
+
+			ifs >> obj.price;
+			for (int j = 0; j < 6; j++)
+				ifs >> obj.rent[j];
+
+			ifs >> obj.housePrice >> obj.hotelPrice >> obj.mortgageValue;
+			obj.money = 0;
+			obj.buy = false;
+
+		}
+		else if (i == 0) {
+			obj.money = 200;
+			obj.price = 0;
+			for (int j = 0; j < 6; j++) obj.rent[j] = 0;
+			obj.housePrice = 0;
+			obj.hotelPrice = 0;
+			obj.mortgageValue = 0;
+		}
+		else if (i == 2 || i == 7 || i == 10 || i == 17 || i == 20 || i == 22 || i == 30 || i == 33 || i == 36) {
+			obj.money = 0;
+			obj.price = 0;
+			for (int j = 0; j < 6; j++) obj.rent[j] = 0;
+			obj.housePrice = 0;
+			obj.hotelPrice = 0;
+			obj.mortgageValue = 0;
+		}
+		else if (i == 4 || i == 38) {
+			if (i == 4) obj.money = -200;
+			else       obj.money = -100;
+			obj.price = 0;
+			for (int j = 0; j < 6; j++) obj.rent[j] = 0;
+			obj.housePrice = 0;
+			obj.hotelPrice = 0;
+			obj.mortgageValue = 0;
+		}
+
+		else if (i == 5 || i == 15 || i == 25 || i == 35) {
+			obj.price = 200;
+			double k = 12.5;
+			for (int j = 0; j < 6; j++) {
+				if (j < 4) obj.rent[j] = k *= 2;
+				else obj.rent[j] = 0;
+			}
+			obj.housePrice = 0;
+			obj.hotelPrice = 0;
+			obj.money = 0;
+			obj.mortgageValue = 100;
+		}
+		obj.map.push_back(obj);
+	}
+
+	for (int i = 0; i < FOUR; i++) 
+		for (int j = 0; j < SIZE; j++) 
+			ifs >> obj.go[i][j].x >> obj.go[i][j].y;
+		
+
 	return ifs;
 }
 
-void Map::DescRect() {
-	//map = new DescriptionOfRectangles[SIZE];
-	int temp;
-	bool var = false;
-
-	for (int i = 0; i < SIZE; i++) {
-		switch (i) {
-		case 0: temp = 200; break;
-		case 1: temp = 200; break;
-		case 3: temp = 200; break;
-		case 4: temp = 200; break;
-		case 5: temp = 200; break;
-		case 6: temp = 200; break;
-		case 8: temp = 200; break;
-		case 9: temp = 200; break;
-		case 11: temp = 200; break;
-		case 12: temp = 200; break;
-		case 13: temp = 200; break;
-		case 14: temp = 200; break;
-		case 15: temp = 200; break;
-		case 16: temp = 200; break;
-		case 18: temp = 200; break;
-		case 19: temp = 200; break;
-		case 21: temp = 200; break;
-		case 23: temp = 200; break;
-		case 24: temp = 200; break;
-		case 25: temp = 200; break;
-		case 26: temp = 200; break;
-		case 27: temp = 200; break;
-		case 28: temp = 200; break;
-		case 29: temp = 200; break;
-		case 31: temp = 200; break;
-		case 32: temp = 200; break;
-		case 34: temp = 200; break;
-		case 35: temp = 200; break;
-		case 37: temp = 200; break;
-		case 38: temp = 200; break;
-		case 39: temp = 200; break;
-		
-		}
-		
-
-
-	    map[i].setdata(temp);
-
-	}
-}

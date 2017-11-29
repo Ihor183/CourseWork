@@ -8,6 +8,7 @@
 #include"Map.h"
 #include"Dice.h"
 #include"Player.h"
+#include<vector>
 
 using namespace sf;
 using namespace std;
@@ -20,8 +21,7 @@ std::string toStr(int var)
 int main() {
 	RenderWindow App;
 	App.create(VideoMode::getDesktopMode(), "Monopoly");
-	int pos = 570, left = 300, top = 0, menuNum = 0;
-	//Menu menu(App);
+	int pos = 600, left = 300, top = 0, menuNum = 0;
 
 	Font fnt_Arial;
 	fnt_Arial.loadFromFile("fonts/arial.ttf");
@@ -37,19 +37,18 @@ int main() {
 	for (int i = 0; i < 6; i++)   tex_Dice[i].loadFromFile("images/de" + toStr(i + 1) + ".png");
 
 
-	Sprite spr_tokens, spr_backgr, spr_map, spr_Token[4], spr_Dice[6], spr_Button[10];
-	spr_tokens.setTexture(tex_tokens);
+	Sprite spr_backgr, spr_map, spr_Dice[6], spr_Button[10];
+	vector<Sprite> spr_Token(4);
 	spr_backgr.setTexture(tex_background);
 	spr_map.setTexture(txt_map);
 	spr_backgr.setPosition(0, 0);
     spr_map.setScale(Vector2f(0.45f, 0.45f));
 	spr_map.setPosition(385, 6);
 
-	for (int i = 0; i < 4; i++)  { spr_Token[i].setTexture(tex_Token[i]);  spr_Token[i].setPosition(990, pos += 20); }
+	for (int i = 0; i < spr_Token.size(); i++)  spr_Token[i].setTexture(tex_Token[i]);
 	for (int i = 0; i < 6; i++)    spr_Dice[i].setTexture(tex_Dice[i]); 
 	for (int i = 0; i < 10; i++) { spr_Button[i].setTexture(tex_Button[i]); spr_Button[i].setPosition(left, top += 60); }
 	
-	//spr_Dice[0].setPosition(600, 300); spr_Dice[1].setPosition(700, 300);
 
 	ifstream ifs;
 	Map map;
@@ -59,25 +58,39 @@ int main() {
 
 	ifs >> map;
 	ifs.close();
-   // Menu menu(App);
+    Menu menu(App);
 
-	int a[4], b[4], c[4], d[4], control[2], j = 0;
+	int a[4], b[4], c[4], d[4], control[] = { -1, -1 }, j = 0;
 	double e[4], f[4];
 
-	//menu.GetDataTokens(a, b, c, d, e, f);
+	menu.GetDataTokens(a, b, c, d, e, f);
 
-	for (int i = 0; i < 4; i++) if (a[i] == 0) { control[j] = i + 1; j++; }
-	
 	for (int i = 0; i < 4; i++) {
-		 spr_Token[i].setTextureRect(IntRect(a[i], b[i], c[i], d[i]));
-		 spr_Token[i].setScale(e[i] / 2, f[i] / 2);
+		if (a[i] == 0) { 
+			control[j] = i; j++; 
+		}
 	}
+
+	if (control[0] != -1) spr_Token.erase(spr_Token.begin() + control[0]);
+	if (control[1] != -1) spr_Token.erase(spr_Token.begin() + (control[1] - 1));
+	
+	for (int i = 0, k = 0; i < 4; i++) {
+		if ((control[0] == -1 || control[0] != i) && (control[1] == -1 || control[1] != i)) {
+			spr_Token[k].setPosition(990, pos += 15);
+			spr_Token[k].setTextureRect(IntRect(a[i], b[i], c[i], d[i]));
+			spr_Token[k].setScale(e[i] / 3, f[i] / 3);
+			k++;
+		}
+		else 
+			continue;
+	}
+
+	int Numplayer = 0;
+	Player *player = new Player[spr_Token.size()];
 
 	int point[2];
 	Dice dice;
-
-	Player player;
-	//player.GetStart();
+	bool fl = false;
 
 	while (App.isOpen())
 	{
@@ -92,66 +105,57 @@ int main() {
 		App.clear();
 		App.draw(spr_backgr);
 		App.draw(spr_map);
-		
-		if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-			dice.ThrowDice(point);
-			if (point[0] != point[1]) {
-				spr_Dice[point[0] - 1].setPosition(600, 300);
-				spr_Dice[point[1] - 1].setPosition(700, 300);
-				App.draw(spr_Dice[point[0] - 1]);
-				App.draw(spr_Dice[point[1] - 1]);
-			}
-			else {
-				spr_Dice[point[0] - 1].setPosition(600, 300);
-				App.draw(spr_Dice[point[0] - 1]);
-				spr_Dice[point[0] - 1].setPosition(700, 300);
-				App.draw(spr_Dice[point[1] - 1]);
-			}
+
+		//for (int i = 0; i < spr_Token.size(); i++) {
 			
+			if (IntRect(300, 60, 58, 58).contains(Mouse::getPosition(App)))   menuNum = 1;
+			if (IntRect(300, 120, 58, 58).contains(Mouse::getPosition(App)))   menuNum = 2;
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				if (menuNum == 1) {
+					player[0].ThrowDice(point);
+					fl = true;
 
-			/*sleep(*new Time(milliseconds(200)));*/
-		}
-
-		if (IntRect(300, 60, 58, 58).contains(Mouse::getPosition(App)))   menuNum = 1;
-		if (IntRect(300, 120, 58, 58).contains(Mouse::getPosition(App)))   menuNum = 2;
-		if (Mouse::isButtonPressed(Mouse::Left)) {
-			if (menuNum == 1) {
-				dice.ThrowDice(point);
-
-				if (point[0] != point[1]) {
-					spr_Dice[point[0] - 1].setPosition(600, 300);
-					spr_Dice[point[1] - 1].setPosition(700, 300);
-					App.draw(spr_Dice[point[0] - 1]);
-					App.draw(spr_Dice[point[1] - 1]);
+					if (point[0] != point[1]) {
+						spr_Dice[point[0] - 1].setPosition(600, 300);
+						spr_Dice[point[1] - 1].setPosition(700, 300);
+						App.draw(spr_Dice[point[0] - 1]);
+						App.draw(spr_Dice[point[1] - 1]);
+					}
+					else {
+						spr_Dice[point[0] - 1].setPosition(600, 300);
+						App.draw(spr_Dice[point[0] - 1]);
+						spr_Dice[point[0] - 1].setPosition(700, 300);
+						App.draw(spr_Dice[point[1] - 1]);
+					}
+					for (int i = 0; i < point[0] + point[1]; i++)
+						spr_Token[0].move(-60, 0);
 				}
-				else {
+				if (menuNum == 2) {
+					//player[1].ThrowDice(point);
 					spr_Dice[point[0] - 1].setPosition(600, 300);
 					App.draw(spr_Dice[point[0] - 1]);
 					spr_Dice[point[0] - 1].setPosition(700, 300);
 					App.draw(spr_Dice[point[1] - 1]);
 				}
 			}
-			if (menuNum == 2) {
-
-			}
+		//}
+		
+		if (fl == true) {
+			spr_Dice[point[0] - 1].setPosition(600, 300);
+			App.draw(spr_Dice[point[0] - 1]);
+			spr_Dice[point[0] - 1].setPosition(700, 300);
+			App.draw(spr_Dice[point[1] - 1]);
 		}
-
-		/*if (player.GetStart() == false) {
-			App.draw(spr_Button[0]);
-			App.draw(spr_Button[7]);
-			App.draw(spr_Button[8]);
-			App.draw(spr_Button[9]);
-		}*/
 		
 		for (int i = 0; i < 10; i++)
 			App.draw(spr_Button[i]);
 
-		/*for (int i = 0; i < 4; i++)
+		for (int i = 0; i < spr_Token.size(); i++)
 		App.draw(spr_Token[i]);
-		*/
+		
 
 		App.display();
-		sleep(*new Time(milliseconds(200)));
+		sleep(*new Time(milliseconds(100)));
 	}
 
 	return 0;

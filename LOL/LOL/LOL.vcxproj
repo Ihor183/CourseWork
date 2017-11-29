@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoordGo.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="DescriptionOfRectangles.cpp" />
     <ClCompile Include="Dice.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Tokens.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoordGo.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="DescriptionOfRectangles.h" />
     <ClInclude Include="Dice.h" />
