@@ -9,11 +9,12 @@ private:
 	bool start;
 	long money;
 	int position;
-	vector<int> firm;
+	//vector<int> firm;
 
 public:
 	Player();
 	~Player();
-	bool GetStart();
+	void setMoney(int);
+	void setPosition(int);
 };
 

@@ -326,34 +326,30 @@ void Menu :: NewMenu(RenderWindow& window) {
 				sleep(*new Time(milliseconds(200)));
 			}
 
-			if (menuNum == 5) { isMenu = false; }
-			if (menuNum == 6) { window.close(); }
+			if (menuNum == 5) { 
+				for (int i = 0; i < 4; i++) {
+					DataTokens[i].x = a[i];
+					DataTokens[i].y = b[i];
+					DataTokens[i].Wight = c[i];
+					DataTokens[i].Height = d[i];
+					DataTokens[i].vec2f1 = e[i];
+					DataTokens[i].vec2f2 = f[i];
+				}
+				 isMenu = false; 
+				}
+
+			if (menuNum == 6) window.close(); 
+			
 		}
 
 		window.draw(menuBg);
 
-		for (int i = 0; i < 8; i++)
-			window.draw(spr_Plcol[i]);
-
-		for (int i = 0; i < 4; i++)
-			window.draw(spr_Token[i]);
-
-		for (int i = 0; i < 6; i++)
-			window.draw(text[i]);
-
+		for (int i = 0; i < 8; i++) window.draw(spr_Plcol[i]);
+        for (int i = 0; i < 4; i++) window.draw(spr_Token[i]);
+		for (int i = 0; i < 6; i++) window.draw(text[i]);
 
 		window.display();
 	}
-
-	for (int i = 0; i < 4; i++) {
-		DataTokens[i].x = a[i];
-		DataTokens[i].y = b[i];
-		DataTokens[i].Wight = c[i];
-		DataTokens[i].Height = d[i];
-		DataTokens[i].vec2f1 = e[i];
-		DataTokens[i].vec2f2 = f[i];
-	}
-
 }
 
 void Menu::GetDataTokens(int* a, int* b, int* c, int* d, double* e, double* f) {

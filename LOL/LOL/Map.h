@@ -4,21 +4,22 @@
 #include<vector>
 #include"Coordinate.h"
 #include"DescriptionOfRectangles.h"
+#include"CoordGo.h"
 
 const int SIZE = 40;
+const int FOUR = 4;
 
 using namespace std;
 
-class Map : protected DescriptionOfRectangles{
+class Map : public DescriptionOfRectangles{
 private:
 	Coordinate SqMap[SIZE];
-	//DescriptionOfRectangles *map;
 	vector<DescriptionOfRectangles> map;
+	CoordGo go[FOUR][SIZE];
 
 public:
 	Map();
 	~Map();
 	friend ifstream& operator >>(ifstream &, Map &);
-	void DescRect();
 };
 
